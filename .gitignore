@@ -1,0 +1,61 @@
+# ======================
+# Python
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.env/
+.env.*
+
+# ======================
+# PyTorch / ML
+# ======================
+*.pt
+*.pth
+*.ckpt
+checkpoints/
+models/
+runs/
+wandb/
+
+# Dataset cache (indirilen veri)
+data/
+datasets/
+*.zip
+*.tar
+*.tar.gz
+
+# ======================
+# Logs & outputs
+# ======================
+logs/
+*.log
+outputs/
+results/
+dist/
+build/
+
+# ======================
+# Jupyter
+# ======================
+.ipynb_checkpoints/
+
+# ======================
+# OS / IDE
+# ======================
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+
+# ======================
+# Executable / build
+# ======================
+*.exe
+*.app
+*.out

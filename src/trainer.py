@@ -1,5 +1,9 @@
 from sklearn.pipeline import Pipeline
+from sklearn.exceptions import ConvergenceWarning
+import warnings
+
 from src.metrics import compute_metrics, fit_label
+
 
 def train_and_evaluate(model, preprocessor, X_train, X_test, y_train, y_test):
     pipe = Pipeline([
@@ -7,7 +11,11 @@ def train_and_evaluate(model, preprocessor, X_train, X_test, y_train, y_test):
         ("clf", model),
     ])
 
-    pipe.fit(X_train, y_train)
+    # Bazı modeller (özellikle MLP) max_iter yetmezse ConvergenceWarning basar.
+    # Eğitim yine de tamamlanır; demo/sunumda konsolu kirletmesin diye susturuyoruz.
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=ConvergenceWarning)
+        pipe.fit(X_train, y_train)
 
     # Train metrics
     y_pred_train = pipe.predict(X_train)

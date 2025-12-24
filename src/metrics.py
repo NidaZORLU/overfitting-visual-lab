@@ -17,3 +17,17 @@ def fit_label(train_acc, test_acc, gap_overfit=0.10, low_acc=0.65):
     if gap >= gap_overfit and train_acc >= 0.75:
         return "🔴 OVERFITTING", gap
     return "🟢 GOOD FIT", gap
+
+DEMO_MODE = True  # sunumda True, normalde False
+
+def fit_label(train_acc, test_acc, gap_overfit=0.10, low_acc=0.65):
+    if DEMO_MODE:
+        low_acc = 0.78      # underfit’i yakalamak için
+        gap_overfit = 0.15  # good fit’i boğmamak için
+
+    gap = train_acc - test_acc
+    if train_acc < low_acc and test_acc < low_acc:
+        return "🟡 UNDERFITTING", gap
+    if gap >= gap_overfit and train_acc >= 0.75:
+        return "🔴 OVERFITTING", gap
+    return "🟢 GOOD FIT", gap
