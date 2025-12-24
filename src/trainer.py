@@ -11,17 +11,15 @@ def train_and_evaluate(model, preprocessor, X_train, X_test, y_train, y_test):
         ("clf", model),
     ])
 
-    # Bazı modeller (özellikle MLP) max_iter yetmezse ConvergenceWarning basar.
-    # Eğitim yine de tamamlanır; demo/sunumda konsolu kirletmesin diye susturuyoruz.
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=ConvergenceWarning)
         pipe.fit(X_train, y_train)
 
-    # Train metrics
+
     y_pred_train = pipe.predict(X_train)
     train_m = compute_metrics(y_train, y_pred_train)
 
-    # Test metrics
+
     y_pred_test = pipe.predict(X_test)
     test_m = compute_metrics(y_test, y_pred_test)
 

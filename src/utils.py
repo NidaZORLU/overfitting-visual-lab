@@ -22,7 +22,7 @@ def build_preprocessor(df: pd.DataFrame, target_col: str, scaling: str, one_hot:
 
     transformers = []
 
-    # Numeric scaler
+
     scaler = None
     if scaling == "standard":
         scaler = StandardScaler()
@@ -35,15 +35,15 @@ def build_preprocessor(df: pd.DataFrame, target_col: str, scaling: str, one_hot:
 
     transformers.append(("num", scaler, num_cols))
 
-    # Categorical encoder
+
     if one_hot and len(cat_cols) > 0:
         ohe = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
         transformers.append(("cat", ohe, cat_cols))
     else:
-        # Kategorikler varsa ve one_hot kapalıysa hata verelim (bilerek)
+        
         if len(cat_cols) > 0:
             raise ValueError("CSV'de kategorik kolonlar var ama One-Hot kapalı. Aç veya kategorikleri sayısallaştır.")
-        # yoksa bir şey ekleme
+      
 
     preprocessor = ColumnTransformer(transformers, remainder="drop")
     return X, y, preprocessor

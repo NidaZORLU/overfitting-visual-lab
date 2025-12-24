@@ -25,7 +25,6 @@ def main():
     csv_path = "data/student.csv"
     target_col = "target"
 
-    # ✅ GARANTİ UNDERFITTING: Perceptron
     res1 = run_one(
         csv_path, target_col,
         scaling="standard", one_hot=True, test_split=0.35,
@@ -33,7 +32,6 @@ def main():
     )
     print_result("UNDERFITTING (Perceptron | standard | test_split=0.35)", res1)
 
-    # ✅ GARANTİ GOOD FIT: Decision Tree depth=3
     res2 = run_one(
         csv_path, target_col,
         scaling="none", one_hot=True, test_split=0.25,
@@ -41,7 +39,7 @@ def main():
     )
     print_result("GOOD FIT (Decision Tree depth=3 | none | test_split=0.25)", res2)
 
-    # ✅ GARANTİ OVERFITTING: Decision Tree depth=20
+
     res3 = run_one(
         csv_path, target_col,
         scaling="none", one_hot=True, test_split=0.25,
@@ -49,7 +47,7 @@ def main():
     )
     print_result("OVERFITTING (Decision Tree depth=20 | none | test_split=0.25)", res3)
 
-    # MLP (çalıştığını göstermek için)
+
     res4 = run_one(
         csv_path, target_col,
         scaling="standard", one_hot=True, test_split=0.25,
