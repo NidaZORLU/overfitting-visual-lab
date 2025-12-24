@@ -7,27 +7,26 @@ def compute_metrics(y_true, y_pred):
         "precision": float(precision_score(y_true, y_pred, average="weighted", zero_division=0)),
         "recall": float(recall_score(y_true, y_pred, average="weighted", zero_division=0)),
         "f1": float(f1_score(y_true, y_pred, average="weighted", zero_division=0)),
-        "confusion_matrix": confusion_matrix(y_true, y_pred)
+        "confusion_matrix": confusion_matrix(y_true, y_pred),
     }
 
-def fit_label(train_acc, test_acc, gap_overfit=0.10, low_acc=0.65):
-    gap = train_acc - test_acc
-    if train_acc < low_acc and test_acc < low_acc:
+def fit_label(train_acc: float, test_acc: float):
+    """
+    Stabil ve sunumda tutarlı etiketleme (heuristic):
+    - UNDERFITTING: hem train hem test "yeterince iyi değil"
+    - OVERFITTING: train çok yüksek ama test belirgin düşük (gap büyük)
+    - GOOD FIT: diğer durumlar
+    """
+    train_acc = float(train_acc)
+    test_acc = float(test_acc)
+    gap = abs(train_acc - test_acc)
+
+    # ✅ Underfitting: model genel olarak zayıf öğrenmiş (özellikle test düşük)
+    if train_acc < 0.80 and test_acc < 0.66:
         return "🟡 UNDERFITTING", gap
-    if gap >= gap_overfit and train_acc >= 0.75:
+
+    # ✅ Overfitting: train çok yüksek + gap büyük
+    if train_acc >= 0.90 and gap >= 0.20:
         return "🔴 OVERFITTING", gap
-    return "🟢 GOOD FIT", gap
 
-DEMO_MODE = True  # sunumda True, normalde False
-
-def fit_label(train_acc, test_acc, gap_overfit=0.10, low_acc=0.65):
-    if DEMO_MODE:
-        low_acc = 0.78      # underfit’i yakalamak için
-        gap_overfit = 0.15  # good fit’i boğmamak için
-
-    gap = train_acc - test_acc
-    if train_acc < low_acc and test_acc < low_acc:
-        return "🟡 UNDERFITTING", gap
-    if gap >= gap_overfit and train_acc >= 0.75:
-        return "🔴 OVERFITTING", gap
     return "🟢 GOOD FIT", gap
