@@ -14,7 +14,6 @@ def print_result(title, result):
     print(f"TEST   acc={te['accuracy']:.4f}  prec={te['precision']:.4f}  rec={te['recall']:.4f}  f1={te['f1']:.4f}")
     print("="*80)
 
-
 def run_one(csv_path, target_col, scaling, one_hot, test_split, cfg):
     df = load_csv(csv_path)
     X, y, preprocessor = build_preprocessor(df, target_col, scaling, one_hot)

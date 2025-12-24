@@ -28,7 +28,6 @@ Confusion Matrix
 Visualization of Train vs Test Accuracy
 
 Requirements
-Python 3.9+
 Required libraries are listed in requirements.txt
 Install dependencies:
 pip install -r requirements.txt
