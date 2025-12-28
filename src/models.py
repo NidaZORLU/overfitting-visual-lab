@@ -31,7 +31,7 @@ def build_model(cfg: ModelConfig):
             solver="adam",
             max_iter=800,
             alpha=1e-4,
-            early_stopping=False,   # ❗ kapalı
+            early_stopping=False,   
             random_state=cfg.random_state
         )
 
